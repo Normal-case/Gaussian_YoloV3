@@ -1,3 +1,4 @@
+# © 2020 reference motokimura github
 import random
 import numpy as np
 import torch

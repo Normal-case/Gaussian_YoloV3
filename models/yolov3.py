@@ -1,3 +1,4 @@
+# © 2020 reference motokimura github
 import torch
 import torch.nn as nn
 

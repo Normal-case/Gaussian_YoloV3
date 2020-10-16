@@ -1,3 +1,4 @@
+# © 2020 reference motokimura github
 from __future__ import division
 import torch
 import numpy as np

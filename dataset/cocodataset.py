@@ -1,3 +1,4 @@
+# © 2020 motokimura github
 import os
 import numpy as np
 

@@ -133,7 +133,13 @@ NUM_GPUS: 1
 그리고 demo.ipynb를 통해서 값을 확인해보자.
 
 ## 4. Custom Training
-이제 coco 데이터가 아닌 다른 데이터로 학습을 진행하는 방법에 대해서 설명하고자 한다. 그러기 위해서는 먼저 학습을 위한 image 데이터와 그 이미지에서 detection 된 결과 값이 있어야 한다. 
+이제 coco 데이터가 아닌 다른 데이터로 학습을 진행하는 방법에 대해서 설명하고자 한다. 그러기 위해서는 먼저 학습을 위한 image 데이터와 그 이미지에서 detection 된 결과 값이 있어야 한다.   
+COCO 폴더에 train, valid 이미지를 준비하고 train, valid label txt를 준비한다. label txt의 형식은
+```
+4 0.342331 0.45554 0.23321 0.12555
+```
+형식으로 구성하는데 처음부터 class, x_centor, y_centor, width, height 정보를 나타낸다. 역자가 학습한 내용을 올리고 싶지만 이미지와 label의 저작권이 회사에 있어서 공유는 못한다.   
+
 이 두가지가 마련되면 json 파일을 만들어 annotation에 저장한다. json의 형식은 coco 데이터 형식으로 아래와 같다.
 ```
 dataset = {
@@ -147,7 +153,8 @@ dataset = {
 1. 먼저 categories의 경우 분류하고 싶은 class 정보를 저장한다. 고양이와 개를 구분하고 싶다면 고양이(class_name)는 0(class_id), 개(class_name)는 1(class_id)로 설정하는 것이다. supercategory에는 적당히 animal 정도로 채워넣으면 된다. 주의할 점은 따로 고양이와 개가 없는 사진을 학습하고 싶다면 background class를 0으로 남겨놓고 고양이는 1, 개는 2로 설정하는 것이 좋다.
 2. images는 사진의 정보를 저장하는 것인데 filename은 이미지의 이름 id는 이미지 고유 번호를 하는 것이 좋다. coco 데이터의 경우 이미지 이름이 '000000000012.jpg' 형식으로 되어있고 굳이 id와 맞출 필요는 없다. width와 height의 경우 사진 해상도가 1920 x 1200 등의 값을 넣어주면 된다.
 3. annotation은 bounding box의 정보를 저장하는 것인데 area는 사진 내에서 그 물체가 찾아지는 박스 크기를 나타낸다. 그리고 bbox는 박스의 x, y의 최소값과 박스의 너비, 높이를 넣어준다. category_id는 그 박스에서 검출된 class가 무엇인지 class_id 값을 넣어주는 것이고 id는 annotation의 고유한 id를 생성해주면 된다. 주의할 점은 annotation_id는 모든 annotation 마다 고유한 id값으로 중복되는 값이 있으면 안된다. 그리고 image_id는 annotation 박스가 어떤 이미지에서 검출된 것인지를 알기 위해서 저장되는 값이다. iscrowd는 한 박스 내에서 여러가지 물체가 검출되는지 여부이다(0은 single object, 1은 group object). 마지막으로 segmentation은 박스의 꼭지점을 저장하는 부분이다.   
-   
+json 만드는 파일은 [json](https://github.com/Normal-case/Gaussian_YoloV3/blob/master/create_json.ipynb)를 참조   
+
 이렇게 custom data 준비가 끝났다면 그에 맞춰 코드를 변경해줘야 할 부분이 있다.
 1. config 조정
 ```
@@ -194,10 +201,16 @@ NUM_GPUS: 1
 2. utils/utils.py 수정
 utils.py에 get_coco_label_names() 함수를 보면 coco_label_names와 coco_class_ids가 coco dataset으로 맞춰져 있는 것을 확인할 수 있는데 이 부분을 custom data에 맞게 수정해줌
 3. cocodataset.py 수정
-dataset/cocodataset.py를 보시면 이미지와 json의 경로 등을 지정해주기 때문에 이를 custom에 맞게 변경
+dataset/cocodataset.py를 보시면 이미지와 json의 경로 등을 지정해주기 때문에 이를 custom에 맞게 변경   
+또한 line 85와 91의 '{:12f}'.format(id_) 부분은 custom 이미지 이름에 맞게 변경해주어야 한다.
 4. cocoapi_evaluator.py 수정
 utils/cocoapi_evaluator.py의 line 75에 보면 아래와 같다.
 ```
 outputs = postprocess(outputs, 80, self.confthre, self.nmsthre)
 ```
 여기서 80은 class 수를 의미하는데 이를 custom에 맞게 변경해준다.
+
+마지막으로 training build 하면 성공
+```
+python train.py --cfg config/gaussian_yolov3_default.cfg --weights_path weights/darknet53.conv.74 --tfboard_dir ./log
+```

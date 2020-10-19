@@ -177,8 +177,8 @@ TRAIN:
   MOMENTUM: 0.9
   DECAY: 0.0005
   BURN_IN: 1000
-  MAXITER: 5000 # maxiter
-  STEPS: (4000, 4500) # (maxiter * 0.8, maxiter * 0.9)
+  MAXITER: 50000 # maxiter
+  STEPS: (40000, 45000) # (maxiter * 0.8, maxiter * 0.9)
   BATCHSIZE: 2 # accoring to cuda
   SUBDIVISION: 2 # accoring to cuda
   IMGSIZE: 608
@@ -192,7 +192,7 @@ AUGMENTATION:
   HUE: 0.1
   SATURATION: 1.5
   EXPOSURE: 1.5
-  LRFLIP: True
+  LRFLIP: False # 이미지 좌우 반전 여부
   RANDOM_DISTORT: True
 TEST:
   CONFTHRE: 0.8
@@ -214,9 +214,9 @@ dataset/cocodataset.py를 보시면 이미지와 json의 경로 등을 지정해
 **4. cocoapi_evaluator.py 수정**   
 utils/cocoapi_evaluator.py의 line 75에 보면 아래와 같다.
 ```
-outputs = postprocess(outputs, 80, self.confthre, self.nmsthre)
+outputs = postprocess(outputs, 65, self.confthre, self.nmsthre)
 ```
-여기서 80은 class 수를 의미하는데 이를 custom에 맞게 변경해준다.
+여기서 65는 class 수를 의미하는데 이를 custom에 맞게 변경해준다.
 
 training build
 ```
@@ -231,4 +231,4 @@ mkdir result # detection된 image 저장
 cd ..
 python inference.py
 ```
-inference.py에 image 경로 및 checkpoint 경로 변경 후 inference 
+inference.py에 image 경로 및 checkpoint 경로 변경 후 inference 실행 결과는 ./demo/result에 저장된다.

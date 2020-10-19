@@ -205,7 +205,7 @@ NUM_GPUS: 1
 그리고 batchsize의 경우 2로 했는데 GTX 1660 super 기준에서는 2를 넘어가면 out of memory 에러가 발생한다.   
 
 **2. utils/utils.py 수정**   
-utils.py에 get_coco_label_names() 함수를 보면 coco_label_names와 coco_class_ids가 coco dataset으로 맞춰져 있는 것을 확인할 수 있는데 이 부분을 custom data에 맞게 수정해줌   
+utils.py에 get_coco_label_names() 함수를 보면 coco_label_names와 coco_class_ids 부분을 custom data에 맞게 수정해줌   
 
 **3. cocodataset.py 수정**   
 dataset/cocodataset.py를 보시면 이미지와 json의 경로 등을 지정해주기 때문에 이를 custom에 맞게 변경   

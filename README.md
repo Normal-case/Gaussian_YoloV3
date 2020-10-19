@@ -134,11 +134,18 @@ NUM_GPUS: 1
 
 ## 4. Custom Training
 이제 coco 데이터가 아닌 다른 데이터로 학습을 진행하는 방법에 대해서 설명하고자 한다. 그러기 위해서는 먼저 학습을 위한 image 데이터와 그 이미지에서 detection 된 결과 값이 있어야 한다.   
-COCO 폴더에 train, valid 이미지를 준비하고 train, valid label txt를 준비한다. label txt의 형식은
+데이터 준비
 ```
-4 0.342331 0.45554 0.23321 0.12555
+mkdir COCO
+cd COCO
+
+mkdir train2017 # train image 저장 공간
+mkdir val2017 # valid image 저장 공간
+mkdir label_t # train image bounding box text 저장 공간
+mkdir label_v # valid image bounding box text 저장 공간
+mkdir annotation # annotation 저장 공간
 ```
-형식으로 구성하는데 처음부터 class, x_centor, y_centor, width, height 정보를 나타낸다. 역자가 학습한 내용을 올리고 싶지만 이미지와 label의 저작권이 회사에 있어서 공유는 못한다.   
+bounding box text 형식은 처음부터 class, x_centor, y_centor, width, height 정보를 나타낸다.   
 
 이 두가지가 마련되면 json 파일을 만들어 annotation에 저장한다. json의 형식은 coco 데이터 형식으로 아래와 같다.
 ```

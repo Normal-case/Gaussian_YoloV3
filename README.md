@@ -148,7 +148,7 @@ python create_json.py
 
 bounding box text 형식은 처음부터 class, x_center, y_center, width, height 정보를 나타낸다.   
 
-이 두가지가 마련되면 json 파일을 만들어 annotation에 저장한다. json의 형식은 coco 데이터 형식으로 아래와 같다.
+이 두가지가 마련되면 json 파일을 만들어 annotations에 저장한다. json의 형식은 coco 데이터 형식으로 아래와 같다.
 ```
 dataset = {
 			'categories' : { 'id' : class_id, 'name' : class_name, 'supercategory' : category_name},

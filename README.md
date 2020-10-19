@@ -162,7 +162,7 @@ dataset = {
 3. annotation은 bounding box의 정보를 저장하는 것인데 area는 사진 내에서 그 물체가 찾아지는 박스 크기를 나타낸다. 그리고 bbox는 박스의 x, y의 최소값과 박스의 너비, 높이를 넣어준다. category_id는 그 박스에서 검출된 class가 무엇인지 class_id 값을 넣어주는 것이고 id는 annotation의 고유한 id를 생성해주면 된다. 주의할 점은 annotation_id는 모든 annotation 마다 고유한 id값으로 중복되는 값이 있으면 안된다. 그리고 image_id는 annotation 박스가 어떤 이미지에서 검출된 것인지를 알기 위해서 저장되는 값이다. iscrowd는 한 박스 내에서 여러가지 물체가 검출되는지 여부이다(0은 single object, 1은 group object). 마지막으로 segmentation은 박스의 꼭지점을 저장하는 부분이다.   
 json 만드는 파일은 [json](https://github.com/Normal-case/Gaussian_YoloV3/blob/master/create_json.ipynb)를 참조   
 
-이렇게 custom data 준비가 끝났다면 그에 맞춰 코드를 변경해줘야 할 부분이 있다.
+이렇게 custom data 준비가 끝났다면 그에 맞춰 코드를 변경해줘야 할 부분이 있다.   
 **1. config 조정**
 ```
 MODEL:

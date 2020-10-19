@@ -144,6 +144,7 @@ mkdir val2017 # valid image 저장 공간
 mkdir label_t # train image bounding box text 저장 공간
 mkdir label_v # valid image bounding box text 저장 공간
 mkdir annotation # annotation 저장 공간
+cd ..
 ```
 bounding box text 형식은 처음부터 class, x_centor, y_centor, width, height 정보를 나타낸다.   
 

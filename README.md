@@ -198,12 +198,12 @@ NUM_GPUS: 1
 가장 중요한 부분이 N_CLASSES 부분인데 이 부분을 custom class 수의 맞게 변경해준다. 
 그리고 사실상 maxiter를 500,000번 돌린다는 건 엄청난 시간이 들기 때문에 시간을 잘 고려해서 조정해준다. 
 그리고 batchsize의 경우 2로 했는데 GTX 1660 super 기준에서는 2를 넘어가면 out of memory 에러가 발생한다.
-2. utils/utils.py 수정
+2. utils/utils.py 수정   
 utils.py에 get_coco_label_names() 함수를 보면 coco_label_names와 coco_class_ids가 coco dataset으로 맞춰져 있는 것을 확인할 수 있는데 이 부분을 custom data에 맞게 수정해줌
-3. cocodataset.py 수정
+3. cocodataset.py 수정   
 dataset/cocodataset.py를 보시면 이미지와 json의 경로 등을 지정해주기 때문에 이를 custom에 맞게 변경   
 또한 line 85와 91의 '{:12f}'.format(id_) 부분은 custom 이미지 이름에 맞게 변경해주어야 한다.
-4. cocoapi_evaluator.py 수정
+4. cocoapi_evaluator.py 수정   
 utils/cocoapi_evaluator.py의 line 75에 보면 아래와 같다.
 ```
 outputs = postprocess(outputs, 80, self.confthre, self.nmsthre)

@@ -223,7 +223,17 @@ outputs = postprocess(outputs, 80, self.confthre, self.nmsthre)
 ```
 여기서 80은 class 수를 의미하는데 이를 custom에 맞게 변경해준다.
 
-마지막으로 training build 하면 성공
+training build
 ```
 python train.py --cfg config/gaussian_yolov3_default.cfg --weights_path weights/darknet53.conv.74 --tfboard_dir ./log
 ```
+마지막으로 custom train inference
+```
+mkdir demo
+cd demo
+mkdir image # image 저장
+mkdir result # detection된 image 저장
+cd ..
+python inference.py
+```
+inference.py에 image 경로 및 checkpoint 경로 변경 후 inference 

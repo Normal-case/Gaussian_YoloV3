@@ -137,9 +137,15 @@ mkdir train2017 # train image 저장 공간
 mkdir val2017 # valid image 저장 공간
 mkdir label_t # train image bounding box text 저장 공간
 mkdir label_v # valid image bounding box text 저장 공간
-mkdir annotation # annotation 저장 공간
+mkdir annotations # annotation 저장 공간
 cd ..
 ```
+train2017에는 train image를 val2017에는 valid image를 넣어주고 label_t, label_v에는 각각 train bounding box text, valid bounding box text파일을 준비한다.
+그리고 annotations에는 json 파일을 준비해주는 데 json 파일은 image와 label을 준비한 뒤 아래 명령을 실행하면 만들어진다.
+```
+python create_json.py
+```
+
 bounding box text 형식은 처음부터 class, x_centor, y_centor, width, height 정보를 나타낸다.   
 
 이 두가지가 마련되면 json 파일을 만들어 annotation에 저장한다. json의 형식은 coco 데이터 형식으로 아래와 같다.
@@ -156,9 +162,6 @@ dataset = {
 2. images는 사진의 정보를 저장하는 것인데 filename은 이미지의 이름 id는 이미지 고유 번호를 하는 것이 좋다. coco 데이터의 경우 이미지 이름이 '000000000012.jpg' 형식으로 되어있고 굳이 id와 맞출 필요는 없다. width와 height의 경우 사진 해상도가 1920 x 1200 등의 값을 넣어주면 된다.
 3. annotation은 bounding box의 정보를 저장하는 것인데 area는 사진 내에서 그 물체가 찾아지는 박스 크기를 나타낸다. 그리고 bbox는 박스의 x, y의 최소값과 박스의 너비, 높이를 넣어준다. category_id는 그 박스에서 검출된 class가 무엇인지 class_id 값을 넣어주는 것이고 id는 annotation의 고유한 id를 생성해주면 된다. 주의할 점은 annotation_id는 모든 annotation 마다 고유한 id값으로 중복되는 값이 있으면 안된다. 그리고 image_id는 annotation 박스가 어떤 이미지에서 검출된 것인지를 알기 위해서 저장되는 값이다. iscrowd는 한 박스 내에서 여러가지 물체가 검출되는지 여부이다(0은 single object, 1은 group object). 마지막으로 segmentation은 박스의 꼭지점을 저장하는 부분이다.   
 json 만드는 파일은 [json](https://github.com/Normal-case/Gaussian_YoloV3/blob/master/create_json.py)를 참조   
-```
-python create_json.py
-```
 
 이렇게 custom data 준비가 끝났다면 그에 맞춰 코드를 변경해줘야 할 부분이 있다.   
 **1. config 조정**

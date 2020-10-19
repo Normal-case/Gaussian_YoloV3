@@ -21,7 +21,7 @@ pip install tensorboardX
 pip install PyYAML
 ```
 ```
-git clone https://github.com/motokimura/PyTorch_Gaussian_YOLOv3.git
+git clone https://github.com/Normal-case/Gaussian_YoloV3.git
 ```
 
 ## 2. Training COCO data
@@ -79,12 +79,6 @@ optional arguments:
   ```
   위는 train.py를 어떻게 사용할지 간단히 확인하고 본인의 조건에 맞게 학습을 진행하면 된다.   
      
-  **그리고 학습 전 주의사항이 있는데 오류가 나는 코드를 발견해서 고치고 진행하기를 권장하는 부분이 있다.
-  models에 yolo_layer.py 187 line을 보면 obj_mask[b] = 1- pred_best_iou 이 있는데 이를**
-  ```
-  obj_mask[b] = ~(pred_best_iou)
-  ```
-  **처럼 바꿔야 한다. 여기서 pred_best_iou는 boolean type인데 '-'를 사용할 수 없다고 오류가 발생했기 때문에 not 명령어로 고쳐주었다.**
   ```
   python train.py --cfg config/gaussian_yolov3_default.cfg --weights_path weights/darknet53.conv.74 --tfboard_dir ./log
   ```
@@ -215,7 +209,7 @@ utils.py에 get_coco_label_names() 함수를 보면 coco_label_names와 coco_cla
 
 **3. cocodataset.py 수정**   
 dataset/cocodataset.py를 보시면 이미지와 json의 경로 등을 지정해주기 때문에 이를 custom에 맞게 변경   
-또한 line 85와 91의 '{:12f}'.format(id_) 부분은 custom 이미지 이름에 맞게 변경해주어야 한다.   
+또한 line 85와 91의 '{:06f}'.format(id_) 부분은 custom 이미지 이름에 맞게 변경해주어야 한다.   
 
 **4. cocoapi_evaluator.py 수정**   
 utils/cocoapi_evaluator.py의 line 75에 보면 아래와 같다.

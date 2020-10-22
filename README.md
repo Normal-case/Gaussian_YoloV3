@@ -12,6 +12,7 @@ Gaussian YOLOv3의 가장 큰 특징은 YOLOv3 버전에서 bounding box의 loss
 - cuda 10.1 & cudnn 7.6.5
 - requirements
 ```
+pip install numpy==1.17.5
 pip install opencv-python # openCV install
 pip install matplotlib
 pip install torch==1.6.0+cu101 torchvision==0.7.0+cu101 -f [https://download.pytorch.org/whl/torch_stable.html](https://download.pytorch.org/whl/torch_stable.html) # torch install

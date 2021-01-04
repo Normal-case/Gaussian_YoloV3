@@ -188,10 +188,10 @@ TRAIN:
   MOMENTUM: 0.9
   DECAY: 0.0005
   BURN_IN: 1000
-  MAXITER: 50000 # maxiter
+  MAXITER: 50000
   STEPS: (40000, 45000) # (maxiter * 0.8, maxiter * 0.9)
-  BATCHSIZE: 2 # accoring to cuda
-  SUBDIVISION: 2 # accoring to cuda
+  BATCHSIZE: 2 
+  SUBDIVISION: 2
   IMGSIZE: 416
   LOSSTYPE: l2
   IGNORETHRE: 0.7
@@ -203,7 +203,7 @@ AUGMENTATION:
   HUE: 0.1
   SATURATION: 1.5
   EXPOSURE: 1.5
-  LRFLIP: False # 이미지 좌우 반전 여부
+  LRFLIP: False
   RANDOM_DISTORT: True
 TEST:
   CONFTHRE: 0.8
